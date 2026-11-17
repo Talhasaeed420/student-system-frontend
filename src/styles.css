@@ -7,7 +7,7 @@
 body { margin: 0; background: var(--bg); color: var(--ink); }
 h1, h2 { margin: 0; }
 .muted { color: var(--muted); }
-.error { color: var(--danger); margin: 8px 0; }
+.error { color: var(--danger); margin: 90; }
 
 input, select { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; background: #fff; }
 input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
