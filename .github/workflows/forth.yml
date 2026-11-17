@@ -1,27 +1,34 @@
-name: "Fifth workflow"
+name: "Job Concurrency"
 on:
-  push: 
+  push:
     branches: [main]
-
-jobs: 
-  build-test:
+jobs:
+  talha:
     runs-on: ubuntu-latest
     steps:
-      - name: Check repo
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
+      - name: Install Dependency and cache
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: npm
-      - name: Run build 
-        run: npm install
-      - name: Run build 
+          cache: npm 
+      - name: Dependency
         run: npm run build
-
-      - name: Save the build logs
+      - name: Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Artifacts save
+          name: artifact save
           path: dist/
+    concurrency:
+      group: New commits
+      cancel-in-progress: true 
+
+  saeed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fix
+        run: echo "hello i still worked" 
+
+
+          
