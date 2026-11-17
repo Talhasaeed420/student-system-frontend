@@ -25,7 +25,9 @@ jobs:
       cancel-in-progress: true 
 
   saeed:
+    needs: talha
     runs-on: ubuntu-latest
+    
     steps:
       - name: fix
         run: echo "hello i still worked" 
