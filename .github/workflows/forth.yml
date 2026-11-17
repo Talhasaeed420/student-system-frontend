@@ -16,6 +16,8 @@ jobs:
           node-version: '20'
           cache: npm
       - name: Run build 
+        run: npm install
+      - name: Run build 
         run: npm run build
 
       - name: Save the build logs
