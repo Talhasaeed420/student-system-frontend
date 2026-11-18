@@ -1,36 +1,38 @@
-name: "Job Concurrency"
+name: "Last action"
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: 0 9 * * * 
+  workflow_dispatch:
+concurrency:
+  group: branches-${{github.ref}}
+  cancel-in-progress: true
+
 jobs:
   talha:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18,19,20]
     steps:
-      - name: Checkout
+      - name: Check code
         uses: actions/checkout@v4
-      - name: Install Dependency and cache
+      - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{matrix.node}}
           cache: npm 
-      - name: Dependency
+      - name: Install 
         run: npm install
-      - name: Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifact save
-          path: dist/
-    concurrency:
-      group: New commits
-      cancel-in-progress: true 
+      - name: build
+        run: npm run build
 
-  saeed:
-    needs: talha
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: fix
-        run: echo "hello i still worked" 
+      - name: artifacts
+        uses: actions/upload-artifact@v4
+        with: 
+          name: Artifact made
+          path: dist/
 
 
           
