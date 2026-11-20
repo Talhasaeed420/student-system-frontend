@@ -1,38 +1,35 @@
-name: "Last action"
+name: "test"
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: 0 9 * * * 
+  schedule: 
+    - cron: '0 9 * * *'   
   workflow_dispatch:
-concurrency:
-  group: branches-${{github.ref}}
-  cancel-in-progress: true
-
 jobs:
   talha:
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [18,19,20]
-    steps:
-      - name: Check code
+    steps: 
+      - name: check code
         uses: actions/checkout@v4
-      - name: Setup node
+      - name: node setup
         uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node}}
-          cache: npm 
-      - name: Install 
+          cache: npm
+      - name: install dependencies
         run: npm install
-      - name: build
+      - name: run
         run: npm run build
-
-      - name: artifacts
+      - name: artifact 
         uses: actions/upload-artifact@v4
-        with: 
-          name: Artifact made
+        with:
+          group: ref-${{github.ref}}
           path: dist/
 
 
-          
+
+        
